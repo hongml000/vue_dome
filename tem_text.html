@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="test" >
+        {{ fullName }}
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#test',
+            data: {
+                firstName: "John",
+                lastName: "Lee",
+            },
+            // 使用computed属性，则直接监听所有的变量
+            computed: {
+                // fullName: function(){
+                //     return this.firstName + " " + this.lastName; 
+                // }
+                fullName: {
+                    // getter，等同于上面写法
+                    get: function(){
+                        return this.firstName + " " + this.lastName;
+                    },
+                    //只有接收到一个新的值vm.fullName = 'xxx xxx'时，才会改变
+                    set: function(names){
+                        var name = names.split(' ');
+                        this.firstName = name[0];
+                        this.lastName = name[1];
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+</html>

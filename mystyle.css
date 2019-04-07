@@ -28,3 +28,9 @@
     margin: 25px;
 }
 
+.isRed {
+    color: red;
+}
+.isBig {
+    font-size: 200%;
+}

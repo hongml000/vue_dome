@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <template>
+            <div v-for='item in items'>
+                {{ item }}
+            </div>
+            <!-- key值用来作为唯一标识 -->
+            <div v-for='(item,index) in items'  @click='handleDiv' :key='index'>
+                {{ index }} --- {{ item }}
+            </div>
+        </template>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                //数组
+                items: ['nice','to','meet','you'],
+                newthing: '',
+            },
+            methods: {
+                handleDiv: function(){
+                    //删除某下标的值
+                    // this.items.splice(this.index,1);
+
+                    //替换某下标的值
+                    // this.items.splice(3,1,'new things');
+                    Vue.set(this.items,2,this.newthing= this.newthing === '' ? 'newthing':'');
+                    // vm.$set(this.items,this.key,'new thing')
+
+                //     //删除数组最后一项
+                //     this.items.pop();
+
+                //     //在数组最后增加一项
+                //     this.items.push();
+
+                //     //删除数组第一项
+                //     this.items.shift();
+
+                //     //删除数组
+                }
+            }
+        })
+    </script>
+</body>
+</html>

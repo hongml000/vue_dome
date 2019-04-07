@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="./mystyle.css">
+</head>
+<body>
+    <div id="app">
+            <!--  -->
+        <div v-bind:style="styleObj" v-on:click="handleClick">
+            hello world
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                styleObj: {
+                    color : 'red',
+                    fontSize: '200%',
+                }
+            },
+            methods: {
+                handleClick: function(){
+                    this.styleObj.color = this.styleObj.color === 'red'?"":"red";
+                    this.styleObj.fontSize = this.styleObj.fontSize === '200%'?"":"200%";
+                }
+            }
+        })
+    </script>
+</body>
+</html>
