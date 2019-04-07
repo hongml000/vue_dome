@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div class="form_test">
+        <!-- <p>{{ message }}</p> -->
+        <input type="text" v-model="message">
+        <button v-on:click='click'>提交</button>
+        <ul>
+            <li v-for='value in object'>
+                {{ value }}
+            </li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '.form_test',
+            data: {
+                message: "",
+                object: {
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    age: 30,
+                }
+            },
+            // methods: {
+            //     click: function(){
+            //         this.todolist.push(this.message);
+            //         this.message = '';
+            //     }
+            // }
+        })
+    </script>
+
+</body>
+</html>

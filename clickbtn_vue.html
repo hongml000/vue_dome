@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <!-- 使用组件 -->
+    <div id="idtest"> 
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+    </div>
+    <script>
+        //定义Vue组件
+        Vue.component('button-counter',{
+            //组件的data必须是一个方法，且数据要通过reutrn对象的方法返回
+            data: function(){
+                return {count: 0};
+            },
+            template:'<button id="btn" v-on:click="count++">你点击我 {{ count }} 次</button>'
+        });
+        
+        //组件必须通过Vue实例显示出来，否则看不见
+        new Vue({
+            el: '#idtest',
+        })
+    </script>
+    
+
+</body>
+</html>

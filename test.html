@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./mystyle.css">
+    <script type="text/javascript" src="myfunction.js"></script>
+    <!-- 第一种，引入外部文件 -->
+    <!-- <script type="text/javascript" async="async" src="xxxx"></script> -->
+    <!-- 第2种，将js写入script标签内 -->
+    <!-- <script type="text/javascript" defer="defer" >
+        //xxxx
+    </script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div>
+        <div class="relative" name='divtest'>
+                我会重叠爸爸
+        </div>
+    </div>
+    <img src="" alt="">
+<script>
+    // div = document.getElementsByTagName('div')[0]
+
+
+
+
+    // var divsX;
+    // var divsY;
+    // //点击时触发
+    // div.onmousedown = function(e){
+    //     divsX = e.pageX - parseInt(window.getComputedStyle(div,null)['left']);
+    //     divsY = e.pageY - parseInt(window.getComputedStyle(div,null)['top']);
+    //     console.log(divsX,divsY)
+    //     //鼠标移动时，div跟着移动（注意，但凡用到top和left值等，都要有top，left的初始值设定，否则无效）
+    //     document.onmousemove = function(e){
+    //             event = e|| window.event;
+    //             // target = event.target || event.srcElement;
+    //             console.log(e.pageX,e.pageY);
+    //             div.style.left = e.pageX - divsX + 'px'; //
+    //             div.style.top = e.pageY - divsY + 'px';//
+    //     }
+    //      //松开鼠标时将onmousemove事件取消
+    //     document.onmouseup = function(e){
+    //         document.onmousemove = null;
+    //     }
+    // }
+   
+    
+
+    // // 原来方法
+    // liList = document.getElementsByTagName('li');
+    // console.log(liList);
+    // len  = liList.length;
+    // console.log(len);
+    // for(var i=0; i<len-1; i++){
+    //     liList[i].onclick = function(){
+    //         console.log(this.innerText);
+    //     }
+    // }
+    // //有多少个li，就要遍历多少个增加事件
+    // //如果后面动态加li，那么又得重写for循环加事件
+    
+    // // 利用事件冒泡和事件源对象优化
+    // var ul = document.getElementsByTagName('ul')[0];
+    // ul.onclick = function(e){
+    //     var event = e || window.event;
+    //     var target = e.target || e.srcElement;
+    //     console.log(target.innerText);
+    // }
+    
+</script>
+
+<script>
+    // document.onkeydown = function(e){
+    //     console.log('down')
+    // }
+    // document.onkeyup = function(e){
+    //     console.log('up');
+    // }
+    // document.onkeypress = function(e){
+    //     console.log(String.fromCharCode(e.charCode));   //可以输出按下的键值，分大小写
+    // }
+    // input = document.getElementsByTagName('input')[0];
+    // input.onfocus = function(e){
+    //     if(this.value=="请输入用户名"){
+    //         this.value = "";
+    //         this.style.color = "#424242";   //标准的黑色字体
+    //     }
+    // }
+    // input.onchange = function(e){
+    //     if(!this.value){
+    //         this.value = "请输入用户名";
+    //         this.style.color = "#999";      //标准的灰色字体
+    //     }
+    // }
+    // window.onscroll = function(){
+    //     console.log(window.pageXOffset + ',' + window.pageYOffset);
+    // }
+    // window.onload = function(){
+    //     div = document.getElementsByTagName('div')[0];
+    //     console.log(div);   //<div class="box"></div>
+    // }
+
+
+</script>
+<!-- <div class="box"></div> -->
+</body>
+</html>

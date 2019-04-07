@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="div">
+        <input type="text" v-model='inputValue' />
+        <button v-on:click='handleBtnClick'>submit</button>
+        <ul >进行中：
+            <todo-item v-for='(item,index) in todoList'
+                       v-bind:item='item'
+                       v-bind:index='index'
+                       v-on:delete='handleSubDelete'></todo-item>
+        </ul>
+    </div>
+    <script>
+        // 这是一个全局组件
+        // Vue.component('todo-item',{
+        //     //从父组件中接收到的属性
+        //     props: ['item'],
+        //     //显示的模板内容s
+        //     template: '<li>{{item}}</li>'
+        // })
+
+        // 局部组件
+        var TodoItem = {
+            //使用props，从父组件中接收到属性
+            props: ['item','index'],
+            template: '<li v-on:click="handleItemClick">{{ index }} - {{ item }}</li>',
+            methods: {
+                handleItemClick: function(){
+                    //使用this.$emit触发父组件的事件，delete这事件是自定义的，后面可以传子组件的参数给父组件
+                    this.$emit('delete',this.index); 
+                }
+            }
+        }
+        vm = new Vue({
+            el: '#div',
+            components: {
+                //使用大驼峰法写，在元素标签，分词写法，如TodoItem--><todo-item>
+                'todo-item': TodoItem,
+            },
+            data: {
+                inputValue: '',
+                todoList: [],
+            },
+            methods: {
+                // 要调用方法或属性，要使用this指向当前对象
+                handleBtnClick: function(){
+                    this.todoList.push(this.inputValue);
+                    this.inputValue = '';
+                },
+                handleSubDelete: function(index){
+                    this.todoList.splice(index,1);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

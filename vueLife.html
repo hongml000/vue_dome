@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="test">{{ text }}</div>
+    <script>
+        var vm = new Vue({
+            el: '#test',    //如果没有以下template选项，那么会把<div id="test">hello world!</div>当作template渲染
+            data:{
+                text: 'hello template!',
+            },
+            template: '<p>{{ text }}</p>',     //但是如果有这个template选项，会直接渲染template模板
+            beforeCreate: function(){
+                console.log('before create');
+            },
+            created: function(){
+                console.log('created');
+            },
+            beforeMount: function(){
+                console.log(this.$el);  //<div id="test">hello world!</div>
+                console.log('before mount');
+            },
+            mounted: function(){
+                console.log(this.$el);  //<p>hello template!</p>
+                console.log('mounted');
+            },
+            beforeUpdate: function(){
+                console.log('before update');
+            },
+            updated: function(){
+                console.log('updated');
+            }
+        })
+    </script>
+</body>
+</html>
