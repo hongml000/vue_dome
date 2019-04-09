@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 父组件通过属性的方式传递参数 -->
+        <counter :count='1'></counter>
+        <counter :count='1'></counter>
+
+    </div>
+    <script>
+        var counter = {
+            //子组件通过props选项属性进行接收父组件的数据
+            props: ['count'],
+            // template: '<button @click="handlerBtnClick">{{ count }}</button>',
+
+            //所以要增加自己的数据，
+            data: function(){
+                return{ 
+                        number : this.count,
+                    } 
+            },
+            template: '<button @click="handlerBtnClick">{{ number }}</button>',
+
+            methods: {
+                handlerBtnClick: function(){
+                    //虽然这样能修改父组件传过来的数据，但会报错，
+                    //因为可能会修改到父组件的引用，影响其它使用父组件数据的子组件
+                    // this.count ++ ;
+
+                    //所以不能直接修改父组件数据，而是新建自己的数据
+                    //拷贝父数组的数据，然后修改自己的数据
+                    this.number ++;
+                }
+            }
+        }
+        var vm = new Vue({
+            el: '#app',
+            components: {
+                counter: counter,
+            }
+        })
+    </script>
+</body>
+</html>

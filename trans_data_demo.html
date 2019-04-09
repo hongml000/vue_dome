@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- emit选项属性自定义的事件，在这里触发父组件的方法 -->
+        <count @change='handleCount' ref='countOne'></count>
+        <count @change='handleCount' ref='countTwo'></count>
+        <count @change='handleCount' ref='countThree'></count>
+        <div>{{ total }}</div>
+    </div>
+    <script>
+        var Count = {
+            // 非根组件，也就是子组件上的data必须是方法，否则会报错
+            data: function(){
+                return {
+                    time : 0,
+                }
+            },
+            template: "<button @click='handleClickBtn'>{{ time }}</button>",
+            methods: {
+                handleClickBtn: function(){
+                    this.time ++;
+                    // 自定义一个事件change，用触发主组件的方法
+                    this.$emit('change');
+                }
+            }
+        }
+        var vm = new Vue({
+            // el为根组件
+            el: '#app',
+            components:{
+                'count': Count,
+            },
+            data: {
+                total : 0,
+            },
+            methods: {
+                handleCount: function(){
+                    // 父组件如果想调用子组件数据，就得借助ref引用子组件
+                    // this.total ++;
+                    console.log(this.$refs.countOne);   //返回组件1本身
+                    console.log(this.$refs.countOne.time);  //返回组件1的time数据
+                    console.log(this.$refs.countTwo);   //返回组件2本身
+                    console.log(this.$refs.countThree); //返回组件2本身
+                    this.total = this.$refs.countOne.time + this.$refs.countTwo.time + this.$refs.countThree.time;
+                },
+            },
+        })
+    </script>
+</body>
+</html>
