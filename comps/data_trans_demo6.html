@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>插槽slot(用于向组件中插入DOM元素)</title>
+</head>
+<body>
+    <div id="app">
+        <child>
+            <!-- 如果插入一个DOM元素，代表一个插槽，要使用具名插槽 -->
+            <!-- 否则一个插槽会代表child组件中所有插入的内容 -->
+            <div class="header" slot='header'>header</div>
+            <!-- <div class="footer" slot='footer'>footer</div> -->
+        </child>
+    </div>
+    <script>
+        Vue.component('child',{
+            template: "<div>\
+                            <slot name='header'>如果组件内没插入头部，就用这个默认头部</slot>\
+                            <p>hello</p>\
+                            <slot name='footer'><h1>默认内容</h1></slot>\
+                       </div>",
+        });
+        var vm = new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+</html>

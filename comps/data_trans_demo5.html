@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>非父子间的组件传值,bus（总线/发布订阅模式/观察者模式)</title>
+</head>
+<body>
+
+    <div id="app">
+        <!-- 此两兄弟间的传值 -->
+        <child content='Dell'></child>
+        <child content='Lee'></child>
+    </div>
+    <script>
+        // bus都指向同一个vue实例
+        Vue.prototype.bus = new Vue()
+        Vue.component('child',{
+            props: {
+                content: String,
+            },
+            template: "<div @click='handleClick'>{{ content }}</div>",
+            methods: {
+                handleClick: function(){
+                    // alert(this.content);
+                    //在vue实例的bus上，向外触发change事件
+                    this.bus.$emit('change',this.content);
+                }
+            },
+            // 当子组件被挂载时，执行的生命周期函数（有几个子组件，就会触发几次）
+            mounted: function(){
+                var this_ = this;
+                // 每个组件bus上监听change事件
+                this.bus.$on('change',function(msg){
+                    alert(msg);     //会弹出2次，因为每个组件都对change事件进行监听
+                    // this.content = msg; //这里的this作用域发生变化，是this.bus，不是子组件本身this，所以不能直接用
+                    this_.content = msg;    // 需要创建一个变量保存this的指向
+                    // 至此，所有组件的数据完成一致性
+                })
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>子组件对父组件传递的数据的约束</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 如果是传递静态的，可以直接使用属性content='22'来表达 -->
+        <!-- 要使用v-bind来告诉Vue，引号中的是一个js表达式，而不是一个字符串 -->
+        <child :content='"hell"' test='bye'></child> 
+    </div>
+    <script>
+        Vue.component('child',{
+            props: {
+                // 使用字符串，当接收的数据是其它类型时，会报错
+                content: String,
+                // 使用数组定义，可接收的多种类型
+                content: [String,Object],  
+                // 使用对象，可定义多种校验，还可以自定义校验
+                content: {
+                    type: String,   //可支持的数据类型
+                    required: true, //必须传递有这个属性，否则报错
+                    default: 'default value',   //默认值，当没有值的时候，会默认显示这个值
+                    //自定义校验方法
+                    validator: function(value){
+                        // 如果长度>=5，虽仍会显示，但会报错
+                        return (value.length < 5);
+                    }
+                }
+            },
+            template: '<div><span> {{content}} </span></div>',
+        })
+        var vm = new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+</html>
