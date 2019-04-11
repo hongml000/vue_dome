@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vue.js"></script>
+    <title>v-slot替代slot和slot-scope</title>
+</head>
+<body>
+    <div id="app">
+        <child>
+            <!-- 替代slot -->
+            <template v-slot:header="userslot">
+                <h1> {{ userslot.user.fullname }} -- {{ userslot.user.age }} </h1>
+            </template>
+            <!-- 替代slot-scope -->
+            <template v-slot="props">
+                <li> {{ props.item }}</li>
+            </template>
+        </child>   
+    </div>
+    <script>
+        Vue.component('child',{
+            data: function(){
+                return {
+                    list: [1,2,3,4,5],
+                    user: {
+                        fullname: 'Lee',
+                        age: 22,
+                    }
+                }
+            },
+            template: "<div title='slot test'>\
+                            <slot name='header' :user='user'>default header</slot> \
+                            <ul>\
+                                <slot v-for='item in list'\
+                                        :item=item>\
+                                {{ item }}</slot>\
+                            </ul>\
+                    </div>",                            
+
+        });
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'Dee',
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 在自定义btn组件上，定义的click事件是自定义的，而不是原生的 -->
+        <btn @click='handleBtnClick'></btn>
+    </div>
+    <script>
+        Vue.component('btn',{
+            //定义在模板中的click事件才是原生的,但在模板中定义，只能触发使用模板中的方法
+            template: "<button @click='handleBtnClick'>click me!</button>",
+            methods: {
+                handleBtnClick: function(){
+                    alert('child click');
+                    //想要使用父组件中的方法，需要使用$emit触发自定义事件
+                    this.$emit('click');
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            methods: {
+                handleBtnClick: function(){
+                    alert('click');
+                }
+            }
+        })
+    </script>
+</body>
+</html>

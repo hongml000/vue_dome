@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vue.js"></script>
+    <title>slot作用域</title>
+</head>
+<body>
+    <div id="app">
+        <child>
+            <!-- slot-scope必须使用在template模板属性上 -->
+            <template slot-scope="props">
+                <!-- 这里就可以自定义显示的样式 -->
+                <!-- 直接显示字符串 -->
+                {{ props.item }}
+                <!-- 使用li模板 -->
+                <li> {{ props.item }}</li>
+                <!-- 使用h1模板 -->
+                <h1> {{ props.item }}</h1>
+            </template>
+
+            
+        </child>   
+    </div>
+    <script>
+        Vue.component('child',{
+            data: function(){
+                return {
+                    list: [1,2,3,4,5]
+                }
+            },
+            template: "<div title='slot test'>\
+                            <ul>\
+                                <slot v-for='item in list'\
+                                        :item=item>\
+                                {{ item }}</slot>\
+                            </ul>\
+                    </div>",                            //    <li v-for='item in list'>{{ item }}</li>\
+
+        });
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'Dee',
+            }
+        })
+    </script>
+</body>
+</html>

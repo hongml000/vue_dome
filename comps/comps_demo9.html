@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vue.js"></script>
+    <title>组件的动态切换：is</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 这个组件名可以自定义，因为实现上是is指代的组件 -->
+        <p is='type'></p>
+        <button @click='handleBtnClick'>change</button>
+    </div>
+    <script>
+        Vue.component('child-one', {
+            template: "<p>child-one</p>",
+        });
+        Vue.component('child-two', {
+            template: "<p>child-two</p>"
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                type: 'child-one',
+            },
+            methods: {
+                handleBtnClick: function () {
+                    this.type = this.type === "child-one" ? "child-two" :
+                        "child-one";
+                }
+            }
+        })
+    </script>
+
+
+</body>
+
+</html>
